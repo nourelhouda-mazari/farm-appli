@@ -1,0 +1,65 @@
+
+*{
+  font-family: 'Roboto', sans-serif;
+}
+
+.info-personnelles {
+  width: 100%;
+  margin: 0 auto;
+
+  height: ;
+  background-color: white ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-personnelles h4 {
+  text-align: center;
+}
+
+.form {
+  border-radius: 30px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  display: flex;
+  justify-content: center; /* Center the form items */
+  align-items: center; /* Remove this line */
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;width: 100%;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  background-color: #2c612e42;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+}
+
+.form button {
+  width: 100px;
+  padding: 10px;
+  background-color: #2c612e;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.form button:hover {
+  background-color: #45a049;
+}

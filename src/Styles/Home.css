@@ -1,0 +1,175 @@
+.messaging-container {
+    display: flex;
+    flex-direction: column;
+  
+  .search-row {
+    height: 70px; 
+  }
+
+
+  
+*{
+  font-family: 'Roboto', sans-serif;
+}
+  
+  .search-col {
+    background-color: #90EE90; /* Light green for search bar */
+  }
+  
+  .contacts-col {
+    background-color: #00C78C; /* Medium green for contacts */
+
+  }
+  
+  .chat-col {
+    background-color: #2ECC71; /* Dark green for chat */
+    height: 540px;
+  }
+}
+
+.message {
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.message-user {
+  background-color: #e6f7ff;
+  color: #333;
+}
+
+.forms-farmers{
+  font-family: 'Roboto', sans-serif;
+  margin-left: 100px;
+  font-weight:bold;
+}
+
+
+@media (max-width: 768px) {
+  .brand {
+    width: 50%; /* Adjust width as needed */
+  }
+}
+
+/* Adjust input width for smaller screens */
+@media (max-width: 768px) {
+  .custom-input {
+    width: 50px; /* Adjust width as needed */
+  }
+}
+
+
+.Home{
+  height: auto;
+  width: 100vw;
+  position: fixed;
+  font-family: 'Roboto', sans-serif;
+
+}
+
+
+.brand-text {
+  font-weight: bold; 
+}
+
+
+.forms-container {
+  margin-left: 40px;
+  border: none;
+}
+
+.custom-input {
+  width: 50px; /* Adjust the width as needed */
+}
+
+.message-other {
+  background-color: #fff;
+  color: #666;
+}
+
+.message-timestamp {
+  font-size: 12px;
+  color: #999;
+  margin-left: 10px;
+}
+.chat-container {
+  overflow-y: scroll; 
+  height: 540px;
+  padding: 10px;
+  display: flex; 
+  flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
+#notificationHeader {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#notificationBody {
+  margin-top: 10px;
+  text-align: center;
+}
+
+#imageContainer {
+  display: flex;
+  align-items: center;
+  height: 100px;
+  object-fit: contain;
+}
+
+/* Overall hero section styles */
+.farmconnect-hero {
+  border: none;
+  padding: 5%;
+  border-radius: 5px; /* Subtle rounded corners */
+  text-align: center;
+  margin: 4%;
+  color: white; /* Base text color */
+  font-family: 'Roboto', sans-serif;
+}
+
+
+/* Hero title (h3) styles */
+.farmconnect-hero h3 {
+  color: white;
+  margin-bottom: 20px; /* Spacing between title and button */
+  font-size: 2rem; /* Larger font size for prominence */
+  font-weight: bold;
+  line-height: 1.2; /* Adjust line height for readability */
+}
+
+/* Play/Pause button styles */
+.farmconnect-play-button {
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px; /* Adjust padding for comfort */
+  cursor: pointer; /* Indicate interaction on hover */
+  color: #fff; /* White text */
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out; /* Smooth transition */
+}
+
+.farmconnect-play-button:hover {
+  color: black; /* Subtle hover effect */
+}
+.farmconnect-hero p {
+  font-size: 1em;  /* Use em for font size in description */
+  line-height: 1.5;
+  word-wrap: break-word;  /* Optional: Break long words (consider aesthetics) */
+}

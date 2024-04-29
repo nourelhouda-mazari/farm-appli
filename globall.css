@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+body {
+  margin: 0;
+  line-height: normal;
+}
+:root {
+  /* fonts */
+  --body-small-body-small-400: Poppins;
+
+  /* font sizes */
+  --body-small-body-small-400-size: 14px;
+  --body-medium-body-medium-500-size: 16px;
+  --body-tiny-body-tiny-400-size: 12px;
+  --heading-05-heading-05-600-size: 32px;
+  --font-size-lgi: 19px;
+  --font-size-7xl: 26px;
+  --body-xxl-body-xxl-600-size: 24px;
+  --caps-lock-tiny-caps-lock-size: 10px;
+  --body-large-body-large-500-size: 18px;
+  --body-xl-body-xl-600-size: 20px;
+
+  /* Colors */
+  --gray-scale-white: #fff;
+  --gray-scale-gray-400: #999;
+  --gray-scale-gray-500: #808080;
+  --color-palet-paragraph-color: #797979;
+  --gray-scale-gray-900: #1a1a1a;
+  --color-palet-nav-menu-hover: #2d5f4d;
+  --gray-scale-gray-800: #333;
+  --branding-success: #00b307;
+  --gray-scale-gray-100: #e6e6e6;
+  --color-whitesmoke-100: #edece9;
+  --gray-scale-gray-700: #4d4d4d;
+  --branding-success-dark: #2c742f;
+  --branding-error: #ea4b48;
+  --branding-warning: #ff8a00;
+  --branding-success-bright: #84d187;
+
+  /* Gaps */
+  --gap-5xs: 8px;
+  --gap-xl: 20px;
+  --gap-xs: 12px;
+  --gap-base: 16px;
+  --gap-9xs: 4px;
+  --gap-5xl: 24px;
+  --gap-3xs-5: 9.5px;
+  --gap-7xs: 6px;
+  --gap-11xs: 2px;
+
+  /* Paddings */
+  --padding-41xl: 60px;
+  --padding-131xl: 150px;
+  --padding-xl: 20px;
+  --padding-56xl: 75px;
+  --padding-5xl: 24px;
+  --padding-7xs: 6px;
+  --padding-10xs: 3px;
+  --padding-base: 16px;
+  --padding-21xl: 40px;
+  --padding-xs: 12px;
+  --padding-10xl: 29px;
+  --padding-6xs: 7px;
+  --padding-8xs: 5px;
+  --padding-12xs: 1px;
+  --padding-6xl: 25px;
+  --padding-5xs: 8px;
+  --padding-4xs-5: 8.5px;
+  --padding-13xl: 32px;
+  --padding-9xs: 4px;
+  --padding-3xl-8: 22.8px;
+  --padding-11xl-7: 30.7px;
+  --padding-11xs: 2px;
+  --padding-11xl: 30px;
+  --padding-82xl: 101px;
+  --padding-9xs-5: 3.5px;
+
+  /* Border radiuses */
+  --br-481xl: 500px;
+  --br-24xl: 43px;
+  --br-9xs: 4px;
+  --br-8xs: 5px;
+
+  /* Effects */
+  --hover-shadow: 0px 0px 12px rgba(32, 181, 38, 0.32);
+}
