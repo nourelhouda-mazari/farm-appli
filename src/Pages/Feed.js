@@ -35,7 +35,7 @@ function Feed() {
     setHoveringButtonPoster(false); };
 
   // Dummy data for posts (you can replace it with actual data from a database)
-  const [posts, setPosts] = useState([
+  const [posts, setPosts] = useState([/*
     
     {
       id: 1,
@@ -62,7 +62,7 @@ function Feed() {
       media: tuto1,
     },
     // Add more posts as needed
-  ]);
+  */]);
 
     const [content, setContent] = useState('');
     const [media, setMedia] = useState(null);
@@ -173,7 +173,7 @@ function Feed() {
       <Row style={{ ...Styles.postcontainer, margin: '0 auto', maxWidth: '1200px', marginLeft: '430px'}}>
         <Col md={8} className="feed-container">
           {/* Iterate over posts array and render each post */}
-          {posts?.map((post) => (
+          {posts?.sort((a, b)=> b.createdAt - a.createdAt).map((post) => (
             <Post key={post.id} post={post} />
           ))}
         </Col>

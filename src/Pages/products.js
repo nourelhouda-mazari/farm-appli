@@ -19,7 +19,7 @@ import axios from 'axios';
 const App = () => {
   const { t } = useTranslation(); 
 
-  const [products, setProducts] = useState([
+  const [products, setProducts] = useState([/*
     {
       id: 1,
       name: t("Laitue"),
@@ -76,7 +76,7 @@ const App = () => {
       description: t("Superaliment nutritif."),
       image: brocoli,
     },
-  ]);
+  */]);
 
   const [cartItems, setCartItems] = useState([]);
 

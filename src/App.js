@@ -19,6 +19,7 @@ import Workforce from './Pages/workforce';
 import TermsAndConditions from './Components/Termes.js'; // Import your TermsAndConditions component
 //import sections from './Dashboard/routes/sections.jsx';
 import Feed from './Pages/Feed.js';
+import Ajout from './Components/AjoutP.js';
 
 import ContactUs from './Components/ContactUs';
 //import { ToastContainer } from 'react-toastify';
@@ -30,7 +31,7 @@ async function requestPermission() {
 
   if (permission === 'granted') {
     const token = await getToken(messaging, {
-      vapidKey: 'BC67-G050VOgJppPokQibJgmtnxf-W1khP2kUdSegZxYQIfWqCyzbKxqelag7_UjG0z5eEPkJNLo52BfEfB7xYI',
+      vapidKey: 'BErmFXdtXxyIDJhBRLw_vQSUGSkH4YS9RJZWLmI67qI_GhEFXq0Bs-3mVzeTTN8yVkCQyM9vLhZ5F-x7M-nbzb4',
     });
 
     // We can send token to server
@@ -47,7 +48,7 @@ function App() {
     toast(<Message notification={payload.notification} />);
   });
   getToken(messaging, {
-    vapidKey: 'BC67-G050VOgJppPokQibJgmtnxf-W1khP2kUdSegZxYQIfWqCyzbKxqelag7_UjG0z5eEPkJNLo52BfEfB7xYI',
+    vapidKey: 'BErmFXdtXxyIDJhBRLw_vQSUGSkH4YS9RJZWLmI67qI_GhEFXq0Bs-3mVzeTTN8yVkCQyM9vLhZ5F-x7M-nbzb4',
   }).then((token) => console.log(token));
 
   const { currentUser } = useContext(AuthContext);
@@ -82,6 +83,8 @@ function App() {
           <Route path="/workforce" element={<Workforce />} />
           <Route path="/Feed" element={<Feed />} />
           <Route path="/contactus" element={<ContactUs />} /> 
+          <Route path="/Ajouter" element={<Ajout />} />
+
         </Routes>
       </Router>
     </HelmetProvider>

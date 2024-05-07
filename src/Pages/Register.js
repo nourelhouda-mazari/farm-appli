@@ -84,29 +84,38 @@ function Register() {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       await sendEmailVerification(auth.currentUser);
-      
-      await auth().getIdToken().then((token) => {
-        localStorage["token"] = token;
-      });
+      localStorage["token"] = res.accessToken;
 
-      axios.post("http://localhost:3002/auth/register", {
-        role: specialite,
+      await axios.post("http://localhost:3002/auth/register", {
+        role: profession,
         age: age,
         wilaya: ville,
         name: idUser,
+        uid: res.user.uid,
         }, {
             headers: {
               "Content-Type": "application/json",
-              Authorization: localStorage["token"],
+              Authorization: res.user.accessToken,
             },
           })
           .catch(error => console.error(error))
 
-      navigate("/Products");
+      await signInWithEmailAndPassword(auth, email, password);
+      await updateProfile(auth.currentUser, {
+        displayName: idUser,
+      });
+
+      if(profession === "ingenieur") {
+        navigate("/equipement");
+      } else if(profession === "commercant") {
+        navigate("/products");
+      } else if(profession === "agriculteur") {
+        navigate("/workforce");
+      } navigate("/products");
+
       setShowLoginForm(true);
   
       // Connexion de l'utilisateur après l'inscription réussie
-      await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.error("Erreur lors de l'inscription :", error);
       setError("Une erreur s'est produite lors de l'inscription. Veuillez réessayer.");
@@ -131,7 +140,7 @@ function Register() {
               value={age} 
               onChange={(e) => {
                 const newAge = parseInt(e.target.value, 10);
-                if (!isNaN(newAge) && newAge >= 16 && newAge <= 100) {
+                if (!isNaN(newAge) && newAge <= 100) {
                   setAge(newAge);
                 } else {
                   setAge(''); // Réinitialise le champ à une chaîne vide

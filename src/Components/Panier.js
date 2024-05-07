@@ -6,17 +6,17 @@ import Footer from "./footer";
 import Checkout from "./Checkout"; // Import the Checkout component
 import apple from '../Images/apple.png';
 import { db } from '../firebase/firebase'; // Import Firebase
-// import {
-//   MDBBtn,
-//   MDBCard,
-//   MDBCardBody,
-//   MDBCardImage,
-//   MDBCol,
-//   MDBContainer,
-//   MDBIcon,
-//   MDBRow,
-//   MDBTypography,
-// } from "mdb-react-ui-kit";
+import {
+  MDBBtn,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBCol,
+  MDBContainer,
+  MDBIcon,
+  MDBRow,
+  MDBTypography,
+} from "mdb-react-ui-kit";
 
 // Define the QuantityInput component separately
 const QuantityInput = ({ initialQuantity, onQuantityChange }) => {
@@ -76,7 +76,7 @@ const QuantityInput = ({ initialQuantity, onQuantityChange }) => {
       >
         +
       </button>
-      {/* <MDBIcon icon="shoppingCart" style={{ fontSize: '2rem', color: '#2ecc71' }} /> */}
+      <MDBIcon icon="shoppingCart" style={{ fontSize: '2rem', color: '#2ecc71' }} />
     </div>
   );
 };
@@ -131,10 +131,8 @@ export default function Panier() {
     let newSubtotal = cart.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
     setSubtotal(newSubtotal);
   }, [cart]);
-  return <div>
-    Panier
-  </div>;
-  /*return (
+
+  return (
     <div>
       <Navigation />
       <MDBContainer className="py-5">
@@ -204,5 +202,5 @@ export default function Panier() {
       <Checkout />
       <Footer />
     </div>
-  );*/
+  );
 }

@@ -4,6 +4,7 @@ import BasicExample from '../Components/Navigation'; // Import the navigation ba
 import Footer from '../Components/footer';
 import img from '../Images/Mourad.png'; // Import the user's photo
 import { useTranslation } from 'react-i18next'; // Import the useTranslation hook
+import { auth } from "../firebase/firebase";
 
 const Account = () => {
   const { t } = useTranslation(); // Use the useTranslation hook for translation
@@ -20,8 +21,8 @@ const Account = () => {
               className="profile-photo"
             />
             <div className="profile-info">
-              <div className="profile-name">{t('Mourad')}</div>
-              <div className="profile-email">{t('Mourad@email.com')}</div>
+              <div className="profile-name">{auth?.currentUser?.displayName || "Unknown"}</div>
+              <div className="profile-email">{auth?.currentUser?.email || "@gmail.com"}</div>
             </div>
           </div>
         </div>

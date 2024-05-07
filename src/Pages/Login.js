@@ -58,17 +58,24 @@ function Login({ initialValues, onChange }) {
       await signInWithEmailAndPassword(auth, email, enteredPassword);
       auth.currentUser.getIdToken().then((token) => {
         localStorage["token"] = token;
-      });
-      axios.get("http://localhost:3002/auth/userinfo", {
-        headers: {
-          Authorization: localStorage["token"],
-        },
+        axios.get("http://localhost:3002/auth/userinfo", {
+          headers: {
+            Authorization: token,
+          },
       })
       .then((response) => {
-          console.log(response.data);
-          //navigate("/Products"); // Naviguer vers la page des produits après la connexion réussie
-        })
-        .catch(error => console.error(error))
+        
+        if(response.data.role === "ingenieur") {
+          navigate("/equipement");
+        } else if(response.data.role === "commercant") {
+          navigate("/products");
+        } else if(response.data.role === "agriculteur") {
+          navigate("/workforce");
+        } navigate("/products");
+        
+      })
+      .catch(error => console.error(error))
+    });
 
 
     } catch (err) {

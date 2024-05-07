@@ -9,7 +9,7 @@ import axios from 'axios';
 const App = () => {
   const { t } = useTranslation(); 
 
-  const [employees, setEmployees] = useState([
+  const [employees, setEmployees] = useState([/*
     {
       id: 1,
       name: t("Reda"),
@@ -74,7 +74,7 @@ const App = () => {
       experience: 0 ,
       image: "",
     },
-  ]);
+  */]);
   const [cart, setCart] = useState([]);
 
   useEffect(()=> {
