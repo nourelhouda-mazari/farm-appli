@@ -1,5 +1,5 @@
 import React from 'react';
-import './SettingsPage.css'; // Import CSS file for styling
+import '../Styles/SettingsPage.css'; // Import CSS file for styling
 import BasicExample from '../Components/Navigation'; // Import the navigation bar component
 import Footer from '../Components/footer';
 import img from '../Images/Mourad.png'; // Import the user's photo

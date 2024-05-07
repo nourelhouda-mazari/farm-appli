@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Button, Placeholder } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Post from '../Components/Post';
@@ -11,6 +11,7 @@ import avatar1 from '../Components/avatar2.png';
 import tuto from '../Components/tuto1.mp4';
 import avatar2 from '../Components/avatar1.jpg';
 import tuto1 from '../Components/tuto2.jpg'
+import axios from 'axios';
 
 function Feed() {
   const [hoveringButton, setHoveringButton] = useState(null);
@@ -65,6 +66,24 @@ function Feed() {
 
     const [content, setContent] = useState('');
     const [media, setMedia] = useState(null);
+
+    useEffect(() => {
+      const fetchPosts = async () => {
+        axios.get('http://localhost:3002/tuto', {
+          headers: {
+            Authorization: localStorage['token'],
+          },
+        })
+        .then((response) => {
+          if(response.data) setPosts(Object.values(response.data)?.map((post) => ({...post, avatar})));
+          else setPosts([]);
+        }
+        )
+        .catch(error => console.error(error))
+
+      };
+      fetchPosts();
+    }, []);
   
     const handleContentChange = (event) => {
       setContent(event.target.value);
@@ -77,10 +96,31 @@ function Feed() {
   
     const handleSubmit = (event) => {
       event.preventDefault();
-      // Envoyer le contenu et les médias au backend ou effectuer une action appropriée
-      console.log('Contenu de la publication :', content);
-      console.log('Média de la publication :', media);
-      // Réinitialiser les états après soumission
+      const formData = new FormData();
+      formData.append('description', content);
+      formData.append('media', media);
+
+      axios.post('http://localhost:3002/tuto/add', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: localStorage['token'],
+        },
+      })
+      .then((response) => {
+        setPosts([{
+          author: {
+            name: 'John Doe',
+          },
+          createdAt: new Date().getTime(),
+          description: content,
+          link: URL.createObjectURL(media),
+          avatar,
+          id: Math.random(),
+        }, ...posts]);
+      })
+      .catch(error => console.error(error))
+
+
       setContent('');
       setMedia(null);
     };
@@ -100,6 +140,7 @@ function Feed() {
     style={{width:'720px', marginBottom:'20px', marginTop:'30px', height:'50px', marginLeft:'30px',borderRadius:'4px', border:'solid 2px green', background:'#d3f8d3'}}
     placeholder="  Nouvelle astuce ?"
     aria-label="Créer une publication"
+    onChange={handleContentChange}
     type="text"
   />
   <div className="buttons" 
@@ -112,10 +153,10 @@ function Feed() {
     onMouseLeave={handleMouseLeaveDirect}
       >
       <span>Photo/Video</span>
-      <input type="file" id="direct" style={{ display: 'none' }} />
+      <input type="file" id="direct" style={{ display: 'none' }} onChange={handleMediaChange} />
     </button>
     
-    <button onClick={() => document.getElementById('poster').click()}
+    <button onClick={handleSubmit}
     type='submit'
      style={{
        ...(hoveringButtonPoster ? Styles.buttonHover : Styles.Button),
@@ -132,7 +173,7 @@ function Feed() {
       <Row style={{ ...Styles.postcontainer, margin: '0 auto', maxWidth: '1200px', marginLeft: '430px'}}>
         <Col md={8} className="feed-container">
           {/* Iterate over posts array and render each post */}
-          {posts.map((post) => (
+          {posts?.map((post) => (
             <Post key={post.id} post={post} />
           ))}
         </Col>

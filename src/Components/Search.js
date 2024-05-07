@@ -6,7 +6,7 @@ import {
   getDocs,
   orderBy,
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../firebase/firebase";
 import { useTranslation } from 'react-i18next';
 
 const Search = () => {
@@ -31,12 +31,7 @@ const Search = () => {
 
       try {
         const querySnapshot = await getDocs(q);
-        const users = querySnapshot.docs
-          .map((doc) => doc.data().displayName)
-          .filter((displayName) =>
-            displayName.toLowerCase().includes(username.toLowerCase())
-          ); // Filter results based on username match
-
+        const users = querySnapshot.docs.map((doc) => doc.data().displayName);
         setSuggestions(users);
       } catch (error) {
         console.error("Error fetching suggestions: ", error);

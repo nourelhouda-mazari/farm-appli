@@ -1,16 +1,15 @@
-// App.js
 
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthContext } from './context/AuthContext';
-import './i18n';
+import { AuthContext } from './context/AuthContext.js';
+import './i18n.js';
 import Products from './Pages/products.js';
 import { toast } from 'react-toastify';
 import Message from './Components/firebase_Messaging.js';
 import { getMessaging, onMessage, getToken } from 'firebase/messaging';
-import { messaging } from './firebase';
+import { messaging } from './firebase/firebase.js';
 import Panier from './Components/Panier';
-import Admin from './App.js';
+//import Admin from './App.js';
 import Equipements from './Components/Equipements';
 import { HelmetProvider } from 'react-helmet-async';
 import Home from './Pages/Home';
@@ -20,7 +19,11 @@ import Workforce from './Pages/workforce';
 import TermsAndConditions from './Components/Termes.js'; // Import your TermsAndConditions component
 //import sections from './Dashboard/routes/sections.jsx';
 import Feed from './Pages/Feed.js';
+
 import ContactUs from './Components/ContactUs';
+//import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 async function requestPermission() {
   const permission = await Notification.requestPermission();
@@ -72,7 +75,6 @@ function App() {
           <Route path="/Account" element={<Account />} />
           <Route path="/Panier" element={<Panier />} />
           <Route path="/Maain" element={<Maain />} />
-          <Route path="/Admin" element={<Admin />} />
           <Route path="/Products" element={<Products />} />
           <Route path="/termes" element={<TermsAndConditions />} />
           <Route path="/Equipements" element={<Equipements />} />

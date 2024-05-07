@@ -7,9 +7,10 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
-import { auth, db, storage } from "../firebase";
+import { auth, db, storage } from "../firebase/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
+import axios from "axios";
 
 const wilayas = [
   "Adrar", "Chlef", "Laghouat", "Oum El Bouaghi", "Batna", "Béjaïa", "Biskra", "Béchar", 
@@ -83,51 +84,24 @@ function Register() {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       await sendEmailVerification(auth.currentUser);
-      const date = new Date().getTime();
-      const storageRef = ref(storage, `${displayName + date}`);
       
-      // Enregistrement dans la collection "users"
-      await setDoc(doc(db, "users", res.user.uid), {
-        uid: res.user.uid,
-        idUser: idUser,
+      await auth().getIdToken().then((token) => {
+        localStorage["token"] = token;
+      });
+
+      axios.post("http://localhost:3002/auth/register", {
+        role: specialite,
         age: age,
-        ville: ville,
-        justificatif: justificatif,
-        email: email,
-        motDePasseHash: password,
-        profession: profession
-      });
-  
-      // Sélection de la collection appropriée en fonction de la profession
-      let collectionName = '';
-      switch (profession) {
-        case 'Agriculteur':
-          collectionName = 'agriculteurs';
-          break;
-        case 'Ingenieur':
-          collectionName = 'ingenieurs';
-          break;
-        case 'Commercant':
-          collectionName = 'commercants';
-          break;
-        case 'Consommateur':
-          collectionName = 'consommateurs';
-          break;
-        default:
-          // Cas par défaut si la profession n'est pas reconnue
-          collectionName = 'consommateurs';
-          break;
-      }
-  
-      // Enregistrement dans la collection appropriée
-      await setDoc(doc(db, collectionName, res.user.uid), {
-        idUser: res.user.uid,
-        // Ajoutez d'autres champs spécifiques à chaque collection si nécessaire
-        ...(profession === 'Ingenieur' && { specialite: specialite }),
-        ...(profession === 'Consommateur' && { justificatif: 'none' })
-      });
-  
-      await setDoc(doc(db, "userChats", res.user.uid), {});
+        wilaya: ville,
+        name: idUser,
+        }, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: localStorage["token"],
+            },
+          })
+          .catch(error => console.error(error))
+
       navigate("/Products");
       setShowLoginForm(true);
   
@@ -186,7 +160,7 @@ function Register() {
             <PasswordStrengthBar password={password} />
             <select value={profession} onChange={handleProfessionChange} required>
               <option value="">{t("Select a profession")}</option>
-              <option value="commerçant">{t("merchant")}</option>
+              <option value="commercant">{t("merchant")}</option>
               <option value="agriculteur">{t("farmer")}</option>
               <option value="ingenieur">{t("ingénieur Agricole")}</option>
               <option value="consomateur">{t("Consumer")}</option>

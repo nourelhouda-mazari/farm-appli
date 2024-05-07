@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next'; 
-import { db } from '../firebase'; // Import Firebase
+import { db } from '../firebase/firebase'; // Import Firebase
 
 import Navigation from '../Components/Navigation';
 import Footer from '../Components/footer'; // Corrected import statement
@@ -14,6 +14,7 @@ import pomme from '../Images/toufa7.jpg';
 import carotte from '../Images/carotte.jpg';
 import patates from '../Images/patates.png';
 import orange from '../Images/orange.png';
+import axios from 'axios';
 
 const App = () => {
   const { t } = useTranslation(); 
@@ -81,10 +82,26 @@ const App = () => {
 
   useEffect(() => {
     const fetchCartItems = async () => {
-      const snapshot = await db.collection("cart").get();
-      const items = snapshot.docs.map((doc) => doc.data());
-      setCartItems(items);
+      // const snapshot = await db.collection("cart").get();
+      // const items = snapshot.docs.map((doc) => doc.data());
+      // setCartItems(items);
     };
+
+    const fetchProducts = async () => {
+      axios.get("http://localhost:3002/product", {
+        headers: {
+          Authorization: localStorage["token"],
+        },
+      })
+      .then((response) => {
+        if(response.data) setProducts(Object.values(response.data));
+        else setProducts([]);
+      })
+      .catch(error => console.error(error))
+
+
+    };
+    fetchProducts();
 
     fetchCartItems();
   }, []);
@@ -96,13 +113,13 @@ const App = () => {
   const renderProducts = () => {
     return (
       <div className="row">
-        {products.map((product, index) => (
+        {products && products?.map((product, index) => (
           <div key={index} className="col-lg-4 col-md-6 mb-4">
             <div className="card">
               <img
                 alt={product.name}
                 className="card-img-top"
-                src={product.image}
+                src={product.link}
               />
               <div className="card-body">
                 <h5 className="card-title">{product.name}</h5>

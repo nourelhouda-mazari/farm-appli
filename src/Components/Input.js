@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import Img from "../img/img.png";
-import Attach from "../img/attach.png";
+import Img from "../Images/img.png";
+import Attach from "../Images/attach.png";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import {
@@ -10,7 +10,7 @@ import {
   Timestamp,
   updateDoc,
 } from "firebase/firestore";
-import { db, storage, messaging } from "../firebase";
+import { db, storage, messaging } from "../firebase/firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useTranslation } from 'react-i18next';

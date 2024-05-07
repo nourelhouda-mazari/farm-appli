@@ -1,5 +1,5 @@
 import React from 'react';
-import { app, auth } from '../firebase'; // Importez l'initialisation de Firebase
+import { app, auth } from '../firebase/firebase'; // Importez l'initialisation de Firebase
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom"; // Importer Link
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../firebase/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import GoogleSignin from "../img/google-removebg-preview.png";
+import GoogleSignin from "../Images/google-removebg-preview.png";
 import SignUpForms from "./Register";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
+import axios from "axios";
 
 
 
@@ -55,7 +56,21 @@ function Login({ initialValues, onChange }) {
 
     try {
       await signInWithEmailAndPassword(auth, email, enteredPassword);
-      navigate("/Products"); // Naviguer vers la page des produits après la connexion réussie
+      auth.currentUser.getIdToken().then((token) => {
+        localStorage["token"] = token;
+      });
+      axios.get("http://localhost:3002/auth/userinfo", {
+        headers: {
+          Authorization: localStorage["token"],
+        },
+      })
+      .then((response) => {
+          console.log(response.data);
+          //navigate("/Products"); // Naviguer vers la page des produits après la connexion réussie
+        })
+        .catch(error => console.error(error))
+
+
     } catch (err) {
       console.error(err);
       alert("Erreur lors de la connexion : vérifiez votre nom d'utilisateur et votre mot de passe.");

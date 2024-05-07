@@ -1,10 +1,10 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { AuthContextProvider } from "./context/AuthContext";
+import { AuthContextProvider } from "./context/AuthContext.js";
 import { ChatContextProvider } from "./context/ChatContext";
 import React from 'react';
 import { Suspense } from 'react';
-import './i18n';
+import './i18n.js';
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

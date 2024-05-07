@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';// Import Link from react-router-dom
 import { useState } from "react"; 
 import Navigation from '../Components/Navigation';
@@ -12,6 +12,7 @@ import faucheuse from '../Images/faucheuse.jpg';
 import moissonneuse from '../Images/Moissonneuse-batteuse.jpg';
 import epandeur from '../Images/Epandeur.jpg';
 import arrosage from '../Images/arrosage.jpg';
+import axios from 'axios';
 const App = () => {
   const { t } = useTranslation(); 
 
@@ -76,6 +77,24 @@ const App = () => {
   ]);
   const [cart, setCart] = useState([]);
 
+  useEffect(()=> {
+    const fetchItems = async () => {
+      axios.get('http://localhost:3002/equipement', {
+        headers: {
+          Authorization: localStorage["token"],
+        },
+      })
+      .then(response => {
+        if(response.data) setProducts(Object.values(response.data));
+        else setProducts([])
+      })
+      .catch(error => console.error(error))
+
+    }
+
+    fetchItems()
+  },[])
+
   const addToCart = (product) => {
     setCart([...cart, product]);
   };
@@ -83,18 +102,18 @@ const App = () => {
   const renderProducts = () => {
     return (
       <div className="row">
-        {products.map((product, index) => (
+        {products && products?.map((product, index) => (
           <div key={index} className="col-lg-4 col-md-6 mb-4">
             <div className="card">
               <img
                 alt={product.name}
                 className="card-img-top"
-                src={product.image}
+                src={product.link}
               />
               <div className="card-body">
                 <h5 className="card-title">{(product.name)}</h5>
                 <p className="card-text">{product.description}</p>
-                <p className="card-text">{t("price")}:{product.price} {("Da")}</p> {/* Displaying the price */}
+                <p className="card-text">{t("price")}:{product.prix} {("Da")}</p> {/* Displaying the price */}
                 <div className="d-flex justify-content-end align-items-center">
                   <button
                     onClick={() => addToCart(product)}

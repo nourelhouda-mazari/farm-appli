@@ -5,7 +5,7 @@ import BasicExample from '../Components/Navigation';
 import Login from '../Pages/Login';
 import farmers from '../Images/farmrs-removebg-preview.png';
 import '../Styles/Home.css';
-import Video from '../img/vid.mp4'
+import Video from '../Images/vid.mp4'
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 

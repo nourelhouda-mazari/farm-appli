@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next'; // Importing useTranslation hook
-import './Footer.css';
+import '../Styles/Footer.css';
 import i18n from '../i18n';
 import { Link } from 'react-router-dom';
 import TermsAndConditions from './Termes';
@@ -15,7 +15,7 @@ const Footer = () => {
         <div className="footer">
           <div className="company-wrapper">
             <div className="company">
-              <h1 className="ecobazar2">{t('FarmConnect')}</h1>
+              <h1 className="ecobazar2">{('FarmConnect')}</h1>
               <div className="morbi-cursus-porttitor">
                 {t('Produits vegetales et Produits Agricoles')}
               </div>

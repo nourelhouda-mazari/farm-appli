@@ -6,13 +6,13 @@ const LanguageSelector = () => {
 
     useEffect(() => {
         const handleKeyDown = (event) => {
-            if (event.key === 'a') {
+            if (event.ctrlKey && event.key === 'a') {
                 changeLanguage('ar');
-            } else if (event.key === 'f') {
+            } else if (event.ctrlKey && event.key === 'f') {
                 changeLanguage('fr');
             }
         };
-
+        
         document.addEventListener('keydown', handleKeyDown);
 
         return () => {

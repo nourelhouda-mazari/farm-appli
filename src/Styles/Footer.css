@@ -1,0 +1,224 @@
+.footer1 {
+  padding: 4rem 0;
+  background-color: #333;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.company-wrapper,
+.my-account-wrapper,
+.help,
+.proxy,
+.categories14 {
+  flex-basis: 20%;
+  padding: 0 1rem;
+}
+
+.company-wrapper {
+  flex-basis: 30%;
+}
+
+.company {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logo2 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.plant-1-container {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+}
+
+.ecobazar2 {
+  margin: 0;
+  text-align: left; /* Aligning the text to the left */
+}
+
+.morbi-cursus-porttitor {
+  margin-bottom: 2rem;
+  color: #999;
+  text-align: left;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.button8,
+.button9 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  height: 3rem;
+  background-color: #444;
+  color: #53c03d;
+  border: none;
+  border-radius: 0.25rem;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.or {
+  margin: 0 1rem;
+  color: #999;
+}
+
+.links,
+.links1,
+.links2,
+.links3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.my-account1,
+.helps,
+.proxy1,
+.categories15 {
+  margin-bottom: 1rem;
+  color: #999;
+}
+
+.my-account2,
+.order-history,
+.shoping-cart,
+.contact2,
+.faqs,
+.terms-condition,
+.privacy-policy,
+.about,
+.shop,
+.product
+ {
+  margin-bottom: 0.5rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.cta2 {
+  margin-top: 2rem;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.icon1 {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.newsletter-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-basis: 30%;
+}
+
+.newsletter {
+  margin-bottom: 2rem;
+  color: #999;
+}
+
+.newsletter-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.newsletter-input {
+  width: 80%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.button10 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  height: 3rem;
+  background-color: #444;
+  color: #444;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.payment-icons {
+  display: flex;
+  align-items: center;
+}
+
+.payment-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 1rem;
+}
+
+.bottom-text {
+  margin: 0;
+  color: #999;
+}
+
+.green-link {
+  color: rgb(166, 240, 166);
+  text-decoration: none;
+}
+
+.green-button {
+  border: none;
+  background-color: green;
+}
+
+
+
+.methodapplepay-parent {
+  display: flex;
+  align-items: center;
+}
+.footer .copyright {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* Allow the content to take up available space */
+}
+
+.ecobazar-ecommerce {
+  margin-right: 20px; /* Adjust the margin-right value as needed */
+}
+
+/* New style for the copyright text */
+.copyright-text {
+  margin-top: 0;
+  padding-left: 2%;
+}

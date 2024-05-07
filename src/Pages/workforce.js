@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';// Import Link from react-router-dom
 import { useState } from "react"; 
 import Navigation from '../Components/Navigation';
 import Footer from '../Components/footer';
 import { useTranslation } from 'react-i18next'; // Import useTranslation hook
+import axios from 'axios';
 
 const App = () => {
   const { t } = useTranslation(); 
 
-  const employees = [
+  const [employees, setEmployees] = useState([
     {
       id: 1,
       name: t("Reda"),
@@ -73,8 +74,24 @@ const App = () => {
       experience: 0 ,
       image: "",
     },
-  ];
+  ]);
   const [cart, setCart] = useState([]);
+
+  useEffect(()=> {
+    const fetchJobs = async () => {
+      axios.get('http://localhost:3002/job', {
+        headers: {
+          Authorization: localStorage["token"],
+        },
+      })
+      .then((response) => {
+        if(response.data) setEmployees(Object.values(response.data));
+        else setEmployees([]);
+      })
+      .catch(error => console.error(error))
+    }
+    fetchJobs()
+  },[])
 
   const addToCart = (product) => {
     setCart([...cart, product]);
@@ -86,14 +103,14 @@ const App = () => {
           <div key={index} className="col-lg-4 col-md-6 mb-4">
             <div className="card">
               <img
-                alt={employee.name}
+                alt={employee.job}
                 className="card-img-top"
-                src={employee.image}
+                src={employee.link}
               />
               <div className="card-body">
-                <h5 className="card-title">{employee.name}</h5>
-                <p className="card-text">{employee.diploma}</p>
-                <p className="card-text">{employee.position}</p>
+                <h5 className="card-title">{employee.user?.name}</h5>
+                <p className="card-text">{employee.description}</p>
+                <p className="card-text">{employee.job}</p>
                 <p className="card-text">{t("Experience")}: {employee.experience} {t("years")}</p>
                 <div className="d-flex justify-content-end align-items-center">
                   <button
