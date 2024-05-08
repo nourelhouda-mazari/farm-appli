@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Image from '../Images/logo.jpg';
-import Cart from '../Images/chariot-de-chariot.png';
+import Cart from '../Images/more+.png';
 import Call from '../Images/silhouette-de-messages.png';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,6 +14,7 @@ import LanguageSelector from './LanguageSelector';
 import '../Styles/Home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useTranslation } from 'react-i18next';
+import Ajouter from './AjoutP'
 
 function Navigation() {
   const { t, i18n } = useTranslation();
@@ -40,8 +41,8 @@ function Navigation() {
     navigate('/account');
   };
 
-  const handlePanierClick = () => {
-    navigate('/panier');
+  const handleAjoutClick = () => {
+    navigate('/Ajouter');
   };
 
   const handleCallClick = () => {
@@ -70,7 +71,7 @@ function Navigation() {
             <Nav.Link onClick={handleAccountClick}>
               <FontAwesomeIcon icon={faUser} style={{ fontSize: '20px', marginRight: '10px' }} />
             </Nav.Link>
-            <Nav.Link onClick={handlePanierClick}>
+            <Nav.Link onClick={handleAjoutClick}>
               <img src={Cart} alt={t("cart")} style={{ width: '25px', marginRight: '10px' }} />
             </Nav.Link>
             <Nav.Link onClick={handleCallClick}>
