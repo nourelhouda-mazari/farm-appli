@@ -5,6 +5,7 @@ import Navigation from '../Components/Navigation';
 import Footer from '../Components/footer';
 import { useTranslation } from 'react-i18next'; // Import useTranslation hook
 import axios from 'axios';
+import { auth } from "../firebase/firebase";
 
 const App = () => {
   const { t } = useTranslation(); 
@@ -85,7 +86,8 @@ const App = () => {
         },
       })
       .then((response) => {
-        if(response.data) setEmployees(Object.values(response.data));
+        const ids = Object.keys(response.data);
+        if(response.data) setEmployees(Object.values(response.data).map((product, index) => ({...product, id: ids[index]})));
         else setEmployees([]);
       })
       .catch(error => console.error(error))
@@ -96,6 +98,19 @@ const App = () => {
   const addToCart = (product) => {
     setCart([...cart, product]);
   };
+
+  const deleteemployee = (employee) => {
+    axios.delete("http://localhost:3002/job/"+employee.id, {
+      headers: {
+        Authorization: localStorage["token"],
+      },
+    })
+    .then((response) => {
+      setEmployees(employees.filter((p) => p.id !== employee.id));
+    })
+    .catch(error => console.error(error))
+  };
+
   const renderEmployees = () => {
     return (
       <div className="row">
@@ -113,12 +128,15 @@ const App = () => {
                 <p className="card-text">{employee.job}</p>
                 <p className="card-text">{t("Experience")}: {employee.experience} {t("years")}</p>
                 <div className="d-flex justify-content-end align-items-center">
-                  <button
+                  {auth.currentUser?.uid === employee.user?.uid?
+                  <button className="btn btn-danger" onClick={()=> deleteemployee(employee, index)}>
+                    Supprimer
+                  </button> : <button
                     onClick={() => addToCart(employee)}
                     className="btn btn-success"
-                >
+                  >
                     {t("contacter")}
-                  </button>
+                  </button>}
                 </div>
               </div>
             </div>

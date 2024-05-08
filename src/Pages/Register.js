@@ -106,7 +106,7 @@ function Register() {
       });
 
       if(profession === "ingenieur") {
-        navigate("/equipement");
+        navigate("/feed");
       } else if(profession === "commercant") {
         navigate("/products");
       } else if(profession === "agriculteur") {

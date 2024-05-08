@@ -4,14 +4,16 @@ import { useState } from "react";
 import Navigation from '../Components/Navigation';
 import Footer from '../Components/footer';
 import { useTranslation } from 'react-i18next'; // Import useTranslation hook
-import tracteur from '../Images/tracteur.jpg';
-import souffleur from '../Images/souffleur.jpg';
-import charrues from '../Images/charrues.jpg';
-import semoir from '../Images/semoir.jpg';
-import faucheuse from '../Images/faucheuse.jpg';
-import moissonneuse from '../Images/Moissonneuse-batteuse.jpg';
-import epandeur from '../Images/Epandeur.jpg';
-import arrosage from '../Images/arrosage.jpg';
+// import tracteur from '../Images/tracteur.jpg';
+// import souffleur from '../Images/souffleur.jpg';
+// import charrues from '../Images/charrues.jpg';
+// import semoir from '../Images/semoir.jpg';
+// import faucheuse from '../Images/faucheuse.jpg';
+// import moissonneuse from '../Images/Moissonneuse-batteuse.jpg';
+// import epandeur from '../Images/Epandeur.jpg';
+// import arrosage from '../Images/arrosage.jpg';
+import { auth } from "../firebase/firebase";
+
 import axios from 'axios';
 const App = () => {
   const { t } = useTranslation(); 
@@ -85,7 +87,8 @@ const App = () => {
         },
       })
       .then(response => {
-        if(response.data) setProducts(Object.values(response.data));
+        const ids = Object.keys(response.data);
+        if(response.data) setProducts(Object.values(response.data).map((product, index) => ({...product, id: ids[index]})));
         else setProducts([])
       })
       .catch(error => console.error(error))
@@ -97,6 +100,18 @@ const App = () => {
 
   const addToCart = (product) => {
     setCart([...cart, product]);
+  };
+
+  const deletee = (employee) => {
+    axios.delete("http://localhost:3002/equipement/"+employee.id, {
+      headers: {
+        Authorization: localStorage["token"],
+      },
+    })
+    .then((response) => {
+      setProducts(products.filter((p) => p.id !== employee.id));
+    })
+    .catch(error => console.error(error))
   };
 
   const renderProducts = () => {
@@ -115,12 +130,15 @@ const App = () => {
                 <p className="card-text">{product.description}</p>
                 <p className="card-text">{t("price")}:{product.prix} {("Da")}</p> {/* Displaying the price */}
                 <div className="d-flex justify-content-end align-items-center">
-                  <button
+                {auth.currentUser?.uid === product.author.uid?
+                  <button className="btn btn-danger" onClick={()=> deletee(product, index)}>
+                    Supprimer
+                  </button> : <button
                     onClick={() => addToCart(product)}
                     className="btn btn-success"
                   >
-                    {t("Add to Cart")}
-                  </button>
+                    {t("contacter")}
+                  </button>}
                 </div>
               </div>
             </div>

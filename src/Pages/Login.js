@@ -66,9 +66,9 @@ function Login({ initialValues, onChange }) {
       .then((response) => {
         
         if(response.data.role === "ingenieur") {
-          navigate("/equipement");
-        } else if(response.data.role === "commercant") {
-          navigate("/products");
+          navigate("/feed");
+        } else if(response.data.role === "products") {
+          navigate("/workforce");
         } else if(response.data.role === "agriculteur") {
           navigate("/workforce");
         } navigate("/products");
@@ -172,6 +172,13 @@ function Login({ initialValues, onChange }) {
           onClick={() => togglePasswordVisibility(showPassword, setShowPassword)} 
         />
       </div>
+      <select required>
+              <option value="">{t("Select a profession")}</option>
+              <option value="commercant">{t("merchant")}</option>
+              <option value="agriculteur">{t("farmer")}</option>
+              <option value="ingenieur">{t("ingénieur Agricole")}</option>
+              <option value="consomateur">{t("Consumer")}</option>
+            </select>
             <button>{t("login")}</button>
           </form>
           <p>

@@ -15,14 +15,15 @@ export const ChatContextProvider = ({ children }) => {
   };
 
   const chatReducer = (state, action) => {
+    console.log(action.payload.id)
     switch (action.type) {
       case "CHANGE_USER":
         return {
           user: action.payload,
-          chatId:
-            currentUser.uid > action.payload.uid
-              ? currentUser.uid + action.payload.uid
-              : action.payload.uid + currentUser.uid,
+          chatId: action?.payload?.id? action.payload.id:
+            currentUser?.uid > action.payload.uid
+              ? currentUser?.uid + action.payload.uid
+              : action.payload.uid + currentUser?.uid,
         };
 
       default:

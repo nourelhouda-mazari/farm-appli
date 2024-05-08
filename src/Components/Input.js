@@ -4,13 +4,16 @@ import Attach from "../Images/attach.png";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import {
+  addDoc,
   arrayUnion,
   doc,
+  getDoc,
   serverTimestamp,
+  setDoc,
   Timestamp,
   updateDoc,
 } from "firebase/firestore";
-import { db, storage, messaging } from "../firebase/firebase";
+import { db, storage, messaging, auth } from "../firebase/firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useTranslation } from 'react-i18next';
@@ -18,7 +21,7 @@ import i18n from '../i18n';
 
 
 
-const Input = () => {
+const Input = ({ recaiver }) => {
   const { t, i18n } = useTranslation();
 
   const changeLanguage = lng => {
@@ -31,10 +34,12 @@ const Input = () => {
   const [fileSelected, setFileSelected] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = auth;
   const { data } = useContext(ChatContext);
 
   const messagesEndRef = useRef(null);
+
+
 
   const handleKeyUp = (event) => {
     if (event.key === "Enter") {
@@ -55,7 +60,7 @@ const Input = () => {
   };
 
   const handleSend = async () => {
-    if (data.chatId) {
+    if (true) {
       if (text.trim() !== "" || file || image) {
         const messageData = {
           id: uuid(),
@@ -77,10 +82,48 @@ const Input = () => {
           const downloadURL = await getDownloadURL(imageRef);
           messageData.imageURL = downloadURL;
         }
+
+        // const chatRoomId = `${user.uid}_${recipientId}`;
+        // firebase.database().ref(`chatRooms/${chatRoomId}`).push({
+        //   userId: user.uid,
+        //   message: message,
+        //   timestamp: firebase.database.ServerValue.TIMESTAMP
+        // });
   
-        await updateDoc(doc(db, "chats", data.chatId), {
-          messages: arrayUnion(messageData),
-        });
+        let chat = await getDoc(doc(db, "chats", data.chatId));
+        console.log(chat.exists(), recaiver, data.chatId);
+        if(!chat.exists()) {
+          await setDoc(doc(db, "chats", data.chatId), {
+            users: [currentUser.uid, recaiver],
+            messages: [messageData],
+            createdAt: serverTimestamp(),
+          });
+          await setDoc(doc(db, "userChats", currentUser.uid), {
+            [recaiver]: {
+              chatId: data.chatId,
+              userInfo: {
+                displayName: recaiver,
+                photoURL: "",
+              },
+              date: serverTimestamp(),
+            },
+          });
+          await setDoc(doc(db, "userChats", recaiver), {
+            [currentUser.uid]: {
+              chatId: data.chatId,
+              userInfo: {
+                displayName: currentUser.displayName,
+                photoURL: "",
+              },
+              date: serverTimestamp(),
+            },
+          });
+
+        } else {
+          await updateDoc(doc(db, "chats", data.chatId), {
+            messages: arrayUnion(messageData),
+          });
+        }
   
         setText("");
         setFile(null);

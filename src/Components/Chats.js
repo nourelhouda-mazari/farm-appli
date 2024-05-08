@@ -1,4 +1,4 @@
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { addDoc, doc, getDoc, onSnapshot } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
@@ -20,6 +20,7 @@ const Chats = () => {
           setChats(data);
         } else {
           console.log("Le document userChats n'existe pas.");
+
         }
       };
 
@@ -27,8 +28,8 @@ const Chats = () => {
     }
   }, [currentUser]); // Remove currentUser.uid from the dependency array
 
-  const handleSelect = (u) => {
-    dispatch({ type: "CHANGE_USER", payload: u });
+  const handleSelect = (u, i) => {
+    dispatch({ type: "CHANGE_USER", payload: {...u, id: i} });
   };
 
   return (
@@ -36,11 +37,11 @@ const Chats = () => {
       {Object.entries(chats)?.length === 0 && (
         <p className="no-chats-message">No chats to display yet.</p>
       )}
-      {Object.entries(chats)?.sort((a, b) => b[1].date - a[1].date).map((chat) => (
+      {Object.entries(chats)?.sort((a, b) => b[1].date - a[1].date).map((chat, index) => (
         <div
           className="userChat"
           key={chat[0]}
-          onClick={() => handleSelect(chat[1].userInfo)}
+          onClick={() => handleSelect(chat[1].userInfo, chat[1].chatId)}
         >
           <img src={chat[1].userInfo.photoURL} alt="" />
           <div className="userChatInfo">

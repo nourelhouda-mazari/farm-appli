@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next'; 
 import { db } from '../firebase/firebase'; // Import Firebase
 
 import Navigation from '../Components/Navigation';
 import Footer from '../Components/footer'; // Corrected import statement
+import { auth } from "../firebase/firebase";
 
-import laitue from '../Images/laitue.jpg';
-import banane from '../Images/banane.jpg';
-import concombre from '../Images/concombre.jpg';
-import brocoli from '../Images/brocoli.jpg';
-import pomme from '../Images/toufa7.jpg';
-import carotte from '../Images/carotte.jpg';
-import patates from '../Images/patates.png';
-import orange from '../Images/orange.png';
+// import laitue from '../Images/laitue.jpg';
+// import banane from '../Images/banane.jpg';
+// import concombre from '../Images/concombre.jpg';
+// import brocoli from '../Images/brocoli.jpg';
+// import pomme from '../Images/toufa7.jpg';
+// import carotte from '../Images/carotte.jpg';
+// import patates from '../Images/patates.png';
+// import orange from '../Images/orange.png';
 import axios from 'axios';
 
 const App = () => {
   const { t } = useTranslation(); 
+  const navigate = useNavigate();
 
   const [products, setProducts] = useState([/*
     {
@@ -94,7 +96,8 @@ const App = () => {
         },
       })
       .then((response) => {
-        if(response.data) setProducts(Object.values(response.data));
+        const ids = Object.keys(response.data);
+        if(response.data) setProducts(Object.values(response.data).map((product, index) => ({...product, id: ids[index]})));
         else setProducts([]);
       })
       .catch(error => console.error(error))
@@ -107,7 +110,19 @@ const App = () => {
   }, []);
 
   const addToCart = (product) => {
-    db.collection("cart").add(product);
+    navigate("/maain/"+product.author.uid)
+  };
+
+  const deleteProduct = (product) => {
+    axios.delete("http://localhost:3002/product/"+product.id, {
+      headers: {
+        Authorization: localStorage["token"],
+      },
+    })
+    .then((response) => {
+      setProducts(products.filter((p) => p.id !== product.id));
+    })
+    .catch(error => console.error(error))
   };
 
   const renderProducts = () => {
@@ -126,12 +141,15 @@ const App = () => {
                 <p className="card-text">{product.description}</p>
                 <p className="card-text">{t("price")}:{product.price} {t("Da")}</p>
                 <div className="d-flex justify-content-end align-items-center">
-                  <button
+                  {auth.currentUser?.uid === product.author.uid?
+                  <button className="btn btn-danger" onClick={()=> deleteProduct(product, index)}>
+                    Supprimer
+                  </button> : <button
                     onClick={() => addToCart(product)}
                     className="btn btn-success"
                   >
-                    {t("Add to Cart")}
-                  </button>
+                    {t("contacter")}
+                  </button>}
                 </div>
               </div>
             </div>

@@ -35,7 +35,6 @@ async function requestPermission() {
     });
 
     // We can send token to server
-    console.log('Token generated : ', token);
   } else if (permission === 'denied') {
     // notifications are blocked
     alert('You denied for the notification');
@@ -47,9 +46,10 @@ function App() {
   onMessage(messaging, (payload) => {
     toast(<Message notification={payload.notification} />);
   });
+
   getToken(messaging, {
     vapidKey: 'BErmFXdtXxyIDJhBRLw_vQSUGSkH4YS9RJZWLmI67qI_GhEFXq0Bs-3mVzeTTN8yVkCQyM9vLhZ5F-x7M-nbzb4',
-  }).then((token) => console.log(token));
+  });
 
   const { currentUser } = useContext(AuthContext);
 
@@ -76,6 +76,7 @@ function App() {
           <Route path="/Account" element={<Account />} />
           <Route path="/Panier" element={<Panier />} />
           <Route path="/Maain" element={<Maain />} />
+          <Route path="/Maain/:id" element={<Maain />} />
           <Route path="/Products" element={<Products />} />
           <Route path="/termes" element={<TermsAndConditions />} />
           <Route path="/Equipements" element={<Equipements />} />

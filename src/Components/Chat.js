@@ -6,7 +6,7 @@ import Messages from "./Messages";
 import Input from "./Input";
 import { ChatContext } from "../context/ChatContext";
 
-const Chat = () => {
+const Chat = ({ id }) => {
   const { currentUser, data } = useContext(ChatContext);
 
   if (!data.chatId) {
@@ -26,7 +26,7 @@ const Chat = () => {
         </div>
       </div>
       <Messages />
-      <Input/>
+      <Input recaiver={id}/>
     </div>
   );
 };
