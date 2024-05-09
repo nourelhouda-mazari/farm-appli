@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';// Import Link from react-router-dom
+//import { Link } from 'react-router-dom';// Import Link from react-router-dom
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from "react"; 
 import Navigation from '../Components/Navigation';
 import Footer from '../Components/footer';
@@ -9,6 +10,7 @@ import { auth } from "../firebase/firebase";
 
 const App = () => {
   const { t } = useTranslation(); 
+  const navigate = useNavigate();
 
   const [employees, setEmployees] = useState([/*
     {
@@ -96,7 +98,7 @@ const App = () => {
   },[])
 
   const addToCart = (product) => {
-    setCart([...cart, product]);
+    navigate("/maain/"+product.author.uid)
   };
 
   const deleteemployee = (employee) => {

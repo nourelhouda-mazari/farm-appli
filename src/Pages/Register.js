@@ -106,12 +106,15 @@ function Register() {
       });
 
       if(profession === "ingenieur") {
-        navigate("/feed");
+        navigate("/Feed");
       } else if(profession === "commercant") {
         navigate("/products");
       } else if(profession === "agriculteur") {
         navigate("/workforce");
-      } navigate("/products");
+      } else if(profession === "consomateur") {
+        navigate("/products");
+      }
+
 
       setShowLoginForm(true);
   
@@ -151,7 +154,7 @@ function Register() {
             />
 
             
-            <div className="additional-inputs"><select 
+            <div className="additional-inputs" style={{maxWidth: 300}}><select 
               value={ville} 
               onChange={(e) => setVille(e.target.value)} 
               required 
