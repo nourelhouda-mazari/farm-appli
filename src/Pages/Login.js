@@ -64,7 +64,7 @@ function Login({ initialValues, onChange }) {
           },
       })
       .then((response) => {
-        
+        localStorage["role"] = response.data.role;
         if(response.data.role === "ingenieur") {
           navigate("/Feed");
         } else if(response.data.role === "consomateur") {

@@ -93,6 +93,12 @@ const Input = ({ recaiver }) => {
         let chat = await getDoc(doc(db, "chats", data.chatId));
         console.log(chat.exists(), recaiver, data.chatId);
         if(!chat.exists()) {
+          let user = await getDoc(doc(db, "users", recaiver));
+          console.log(user.exists() === true, user.data());
+          if(!user.exists()) {
+            console.error(t("User not found"));
+            return;
+          }
           await setDoc(doc(db, "chats", data.chatId), {
             users: [currentUser.uid, recaiver],
             messages: [messageData],
@@ -102,12 +108,13 @@ const Input = ({ recaiver }) => {
             [recaiver]: {
               chatId: data.chatId,
               userInfo: {
-                displayName: recaiver,
-                photoURL: "",
+                displayName: user.data()?.displayName || "",
+                uid: recaiver,
+                photoURL: user.data()?.photoURL || "",
               },
               date: serverTimestamp(),
             },
-          });
+          }, { merge: true });
           await setDoc(doc(db, "userChats", recaiver), {
             [currentUser.uid]: {
               chatId: data.chatId,
@@ -117,7 +124,7 @@ const Input = ({ recaiver }) => {
               },
               date: serverTimestamp(),
             },
-          });
+          }, { merge: true });
 
         } else {
           await updateDoc(doc(db, "chats", data.chatId), {

@@ -173,3 +173,9 @@
   line-height: 1.5;
   word-wrap: break-word;  /* Optional: Break long words (consider aesthetics) */
 }
+
+.nav-link {
+  display: flex!important;
+  justify-content: center!important;
+  align-items: center!important;
+}

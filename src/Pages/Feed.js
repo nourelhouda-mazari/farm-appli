@@ -12,6 +12,7 @@ import tuto from '../Components/tuto1.mp4';
 import avatar2 from '../Components/avatar1.jpg';
 import tuto1 from '../Components/tuto2.jpg'
 import axios from 'axios';
+import { auth } from '../firebase/firebase';
 
 function Feed() {
   const [hoveringButton, setHoveringButton] = useState(null);
@@ -109,7 +110,7 @@ function Feed() {
       .then((response) => {
         setPosts([{
           author: {
-            name: 'John Doe',
+            name: auth.currentUser.displayName,
           },
           createdAt: new Date().getTime(),
           description: content,

@@ -54,7 +54,10 @@ function Navigation() {
   return (
     <Navbar expand="lg" className='bg-body-tertiary'>
       <Container style={{ padding: "0%" }}>
-        <Navbar.Brand href="/" className="d-flex align-items-center brand">
+        <Navbar.Brand href="/" onClick={(e)=> {
+          e.preventDefault();
+          navigate('/');
+        }} className="d-flex align-items-center brand">
           <img src={Image} alt="image" />
           <span className="brand-text">FarmConnect</span>
         </Navbar.Brand>

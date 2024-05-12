@@ -24,6 +24,7 @@ import Ajout from './Components/AjoutP.js';
 import ContactUs from './Components/ContactUs';
 //import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NotAllowed from './Pages/NotAllowed.js';
 
 
 async function requestPermission() {
@@ -51,14 +52,21 @@ function App() {
     vapidKey: 'BErmFXdtXxyIDJhBRLw_vQSUGSkH4YS9RJZWLmI67qI_GhEFXq0Bs-3mVzeTTN8yVkCQyM9vLhZ5F-x7M-nbzb4',
   });
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, isLoading } = useContext(AuthContext);
 
-  const ProtectedRoute = ({ children }) => {
+  const ProtectedRoute = ({ children, notAllowed }) => {
+    let role = localStorage.getItem('role');
+    if (notAllowed && notAllowed.includes(role)) {
+      return <NotAllowed />;
+    }
+    
     if (!currentUser) {
       return <Navigate to="/Home" />;
     }
     return children;
   };
+
+  if(isLoading) return <div>Loading...</div>
 
   return (
     <HelmetProvider>
@@ -73,18 +81,18 @@ function App() {
             }
           />
           <Route path="/Home" element={<Home />} />
-          <Route path="/Account" element={<Account />} />
-          <Route path="/Panier" element={<Panier />} />
-          <Route path="/Maain" element={<Maain />} />
-          <Route path="/Maain/:id" element={<Maain />} />
-          <Route path="/Products" element={<Products />} />
+          <Route path="/Account" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Account /></ProtectedRoute>} />
+          <Route path="/Panier" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Panier /></ProtectedRoute>} />
+          <Route path="/Maain" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Maain /></ProtectedRoute>} />
+          <Route path="/Maain/:id" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Maain /></ProtectedRoute>} />
+          <Route path="/Products" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Products /></ProtectedRoute>} />
           <Route path="/termes" element={<TermsAndConditions />} />
-          <Route path="/Equipements" element={<Equipements />} />
-          <Route path="/sections" element={<sections />} />
-          <Route path="/workforce" element={<Workforce />} />
-          <Route path="/Feed" element={<Feed />} />
+          <Route path="/Equipements" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Equipements /></ProtectedRoute>} />
+          <Route path="/sections" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><sections /></ProtectedRoute>} />
+          <Route path="/workforce" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Workforce /></ProtectedRoute>} />
+          <Route path="/Feed" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Feed /></ProtectedRoute>} />
           <Route path="/contactus" element={<ContactUs />} /> 
-          <Route path="/Ajouter" element={<Ajout />} />
+          <Route path="/Ajouter" element={<ProtectedRoute><Ajout /></ProtectedRoute>} />
 
         </Routes>
       </Router>

@@ -7,10 +7,12 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [userProfession, setUserProfession] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+      setLoading(false);
       console.log(user);
     });
 
@@ -20,7 +22,7 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, userProfession }}>
+    <AuthContext.Provider value={{ currentUser, userProfession, isLoading: loading }}>
       {children}
     </AuthContext.Provider>
   );
