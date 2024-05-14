@@ -97,8 +97,8 @@ const App = () => {
     fetchJobs()
   },[])
 
-  const addToCart = (product) => {
-    navigate("/maain/"+product.author.uid)
+  const addToCart = (job) => {
+    navigate("/maain/"+job.author.uid)
   };
 
   const deleteemployee = (employee) => {
@@ -119,11 +119,7 @@ const App = () => {
         {employees.map((employee, index) => (
           <div key={index} className="col-lg-4 col-md-6 mb-4">
             <div className="card">
-              <img
-                alt={employee.job}
-                className="card-img-top"
-                src={employee.link}
-              />
+              
               <div className="card-body">
                 <h5 className="card-title">{employee.user?.name}</h5>
                 <p className="card-text">{employee.description}</p>

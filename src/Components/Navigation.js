@@ -49,6 +49,10 @@ function Navigation() {
     navigate('/ContactUs'); // Navigate to the correct route '/ContactUs'
   };
 
+  const handlefeedClick = () => {
+    navigate('/feed'); // Navigate to the correct route '/ContactUs'
+  };
+
   const ProductsPlaceholder = t("search for products");
 
   return (
@@ -67,7 +71,8 @@ function Navigation() {
             <Nav.Link className="ms-3" style={{ marginRight: '1rem' }} onClick={handleMaindoeuvreClick}>{t("workforce")}</Nav.Link>
             <Nav.Link className="ms-3" style={{ marginRight: '1rem' }} onClick={handleProductsClick}>{t("products")}</Nav.Link>
             <Nav.Link className="ms-3" style={{ marginRight: '1rem' }} onClick={handleEquipementsClick}>{t("equipements")}</Nav.Link>
-            <SearchBar placeholderText={ProductsPlaceholder} />
+            <Nav.Link className='ms-3' style={{ marginRight: '10rem', marginLeft: '10rem' }} onClick={handlefeedClick}>{t("Accéder à l'espace Tutoriels et astuce")}</Nav.Link>
+            
             <div style={{ padding: '7px'}}>
               <LanguageSelector />
             </div>

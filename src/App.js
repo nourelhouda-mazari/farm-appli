@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 import Message from './Components/firebase_Messaging.js';
 import { getMessaging, onMessage, getToken } from 'firebase/messaging';
 import { messaging } from './firebase/firebase.js';
-import Panier from './Components/Panier';
 //import Admin from './App.js';
 import Equipements from './Components/Equipements';
 import { HelmetProvider } from 'react-helmet-async';
@@ -81,18 +80,17 @@ function App() {
             }
           />
           <Route path="/Home" element={<Home />} />
-          <Route path="/Account" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Account /></ProtectedRoute>} />
-          <Route path="/Panier" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Panier /></ProtectedRoute>} />
-          <Route path="/Maain" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Maain /></ProtectedRoute>} />
-          <Route path="/Maain/:id" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Maain /></ProtectedRoute>} />
-          <Route path="/Products" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Products /></ProtectedRoute>} />
+          <Route path="/Account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
+          <Route path="/Maain" element={<ProtectedRoute><Maain /></ProtectedRoute>} />
+          <Route path="/Maain/:id" element={<ProtectedRoute><Maain /></ProtectedRoute>} />
+          <Route path="/Products" element={<ProtectedRoute Allowed={["ingenieur", "agriculteur","commercant","consomateur"]}><Products /></ProtectedRoute>} />
           <Route path="/termes" element={<TermsAndConditions />} />
-          <Route path="/Equipements" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Equipements /></ProtectedRoute>} />
-          <Route path="/sections" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><sections /></ProtectedRoute>} />
-          <Route path="/workforce" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Workforce /></ProtectedRoute>} />
-          <Route path="/Feed" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><Feed /></ProtectedRoute>} />
+          <Route path="/Equipements" element={<ProtectedRoute Allowed={["ingenieur", "agriculteur"]}><Equipements /></ProtectedRoute>} />
+          <Route path="/sections" element={<ProtectedRoute Allowed={["ingenieur", ""]}><sections /></ProtectedRoute>} />
+          <Route path="/workforce" element={<ProtectedRoute Allowed={["ingenieur", "agriculteur"]}><Workforce /></ProtectedRoute>} />
+          <Route path="/Feed" element={<ProtectedRoute Allowed={["ingenieur", "agriculteur"]}><Feed /></ProtectedRoute>} />
           <Route path="/contactus" element={<ContactUs />} /> 
-          <Route path="/Ajouter" element={<ProtectedRoute><Ajout /></ProtectedRoute>} />
+          <Route path="/Ajouter" element={<ProtectedRoute Allowed={["ingenieur", "commercant", "agriculteur"]}><Ajout /></ProtectedRoute>} />
 
         </Routes>
       </Router>
