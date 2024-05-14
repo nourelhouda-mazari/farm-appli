@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
+import {Link } from 'react-router-dom';
 
 const Post = ({ post }) => {
   const { avatar, author, createdAt, description, link } = post;
@@ -31,14 +32,14 @@ const Post = ({ post }) => {
         )}
         {/* Add more interactive features like comments, likes, etc. */}
         {/* For now, just a simple button for demonstration */}
-        <a href={`mailto:${author.email}`} style={{textDecoration:'none'}}>
+        <Link to={`/maain/:${author.uid}`} style={{textDecoration:'none'}}>
         <Button 
         style={{
         display:'flex',
         justifyContent:'center',
         marginLeft:'255px',
         }}
-        variant="success">Ask for more informations</Button> </a>
+        variant="success">Ask for more informations</Button> </Link>
       </Card.Body>
     </Card>
   );

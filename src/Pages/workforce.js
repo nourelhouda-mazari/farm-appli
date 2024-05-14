@@ -98,7 +98,7 @@ const App = () => {
   },[])
 
   const addToCart = (job) => {
-    navigate("/maain/"+job.author.uid)
+    navigate("/maain/"+job.user.uid)
   };
 
   const deleteemployee = (employee) => {

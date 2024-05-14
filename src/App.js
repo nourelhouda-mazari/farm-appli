@@ -83,14 +83,14 @@ function App() {
           <Route path="/Account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
           <Route path="/Maain" element={<ProtectedRoute><Maain /></ProtectedRoute>} />
           <Route path="/Maain/:id" element={<ProtectedRoute><Maain /></ProtectedRoute>} />
-          <Route path="/Products" element={<ProtectedRoute Allowed={["ingenieur", "agriculteur","commercant","consomateur"]}><Products /></ProtectedRoute>} />
+          <Route path="/Products" element={<ProtectedRoute notAllowed={[""]}><Products /></ProtectedRoute>} />
           <Route path="/termes" element={<TermsAndConditions />} />
-          <Route path="/Equipements" element={<ProtectedRoute Allowed={["ingenieur", "agriculteur"]}><Equipements /></ProtectedRoute>} />
-          <Route path="/sections" element={<ProtectedRoute Allowed={["ingenieur", ""]}><sections /></ProtectedRoute>} />
-          <Route path="/workforce" element={<ProtectedRoute Allowed={["ingenieur", "agriculteur"]}><Workforce /></ProtectedRoute>} />
-          <Route path="/Feed" element={<ProtectedRoute Allowed={["ingenieur", "agriculteur"]}><Feed /></ProtectedRoute>} />
+          <Route path="/Equipements" element={<ProtectedRoute notAllowed={["commercant", "consomateur"]}><Equipements /></ProtectedRoute>} />
+          <Route path="/sections" element={<ProtectedRoute notAllowed={["ingenieur", ""]}><sections /></ProtectedRoute>} />
+          <Route path="/workforce" element={<ProtectedRoute notAllowed={["commercant","consomateur"]}><Workforce /></ProtectedRoute>} />
+          <Route path="/Feed" element={<ProtectedRoute notAllowed={["consomateur","commercant"]}><Feed /></ProtectedRoute>} />
           <Route path="/contactus" element={<ContactUs />} /> 
-          <Route path="/Ajouter" element={<ProtectedRoute Allowed={["ingenieur", "commercant", "agriculteur"]}><Ajout /></ProtectedRoute>} />
+          <Route path="/Ajouter" element={<ProtectedRoute notAllowed={["consomateur",]}><Ajout /></ProtectedRoute>} />
 
         </Routes>
       </Router>

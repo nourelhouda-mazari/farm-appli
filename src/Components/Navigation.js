@@ -46,7 +46,7 @@ function Navigation() {
   };
 
   const handleCallClick = () => {
-    navigate('/ContactUs'); // Navigate to the correct route '/ContactUs'
+    navigate('/Maain'); // Navigate to the correct route '/ContactUs'
   };
 
   const handlefeedClick = () => {

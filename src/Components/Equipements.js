@@ -130,7 +130,7 @@ const App = () => {
               <div className="card-body">
                 <h5 className="card-title">{(product.name)}</h5>
                 <p className="card-text">{product.description}</p>
-                <p className="card-text">{t("price")}:{product.prix} {("Da")}</p> {/* Displaying the price */}
+                <p className="card-text">{t("price")}:{product.price} {("Da")}</p> {/* Displaying the price */}
                 <div className="d-flex justify-content-end align-items-center">
                 {auth.currentUser?.uid === product.author.uid?
                   <button className="btn btn-danger" onClick={()=> deletee(product, index)}>

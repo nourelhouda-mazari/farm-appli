@@ -115,7 +115,7 @@ function Register() {
         navigate("/products");
       }
 
-
+      localStorage.setItem("role", profession);
       setShowLoginForm(true);
   
       // Connexion de l'utilisateur après l'inscription réussie
