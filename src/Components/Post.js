@@ -1,9 +1,23 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import {Link } from 'react-router-dom';
+import { auth } from '../firebase/firebase';
+import axios from 'axios';
 
-const Post = ({ post }) => {
+const Post = ({ post, setPosts, posts }) => {
   const { avatar, author, createdAt, description, link } = post;
+
+  const deletee = (post) => {
+    axios.delete(`http://localhost:3002/tuto/${post.id}`, {
+      headers: {
+        Authorization: localStorage['token'],
+      },
+    })
+    .then(() => {
+      setPosts(posts.filter((p) => p.id !== post.id));
+    })
+    .catch(error => console.error(error))
+  }
 
   return (
     <Card className="mb-3" 
@@ -32,14 +46,23 @@ const Post = ({ post }) => {
         )}
         {/* Add more interactive features like comments, likes, etc. */}
         {/* For now, just a simple button for demonstration */}
-        <Link to={`/maain/:${author.uid}`} style={{textDecoration:'none'}}>
+        {author.uid !== auth.currentUser.uid ? <Link to={`/maain/:${author.uid}`} style={{textDecoration:'none'}}>
         <Button 
         style={{
         display:'flex',
         justifyContent:'center',
         marginLeft:'255px',
         }}
-        variant="success">Ask for more informations</Button> </Link>
+        variant="success">Ask for more informations</Button> </Link>:
+        <Button 
+        style={{
+        display:'flex',
+        justifyContent:'center',
+        marginLeft:'255px',
+        }}
+        onClick={()=> deletee(post)}
+        variant="danger">Delete</Button>
+        }
       </Card.Body>
     </Card>
   );

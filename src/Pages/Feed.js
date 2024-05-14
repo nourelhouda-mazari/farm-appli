@@ -76,7 +76,8 @@ function Feed() {
           },
         })
         .then((response) => {
-          if(response.data) setPosts(Object.values(response.data)?.map((post) => ({...post, avatar})));
+          const ids = Object.keys(response.data);
+          if(response.data) setPosts(Object.values(response.data)?.map((post, i) => ({...post, avatar, id: ids[i]})));
           else setPosts([]);
         }
         )
@@ -111,12 +112,13 @@ function Feed() {
         setPosts([{
           author: {
             name: auth.currentUser.displayName,
+            uid: auth.currentUser.uid,
           },
           createdAt: new Date().getTime(),
           description: content,
           link: URL.createObjectURL(media),
           avatar,
-          id: Math.random(),
+          id: response.data.id,
         }, ...posts]);
       })
       .catch(error => console.error(error))
@@ -175,7 +177,7 @@ function Feed() {
         <Col md={8} className="feed-container">
           {/* Iterate over posts array and render each post */}
           {posts?.sort((a, b)=> b.createdAt - a.createdAt).map((post) => (
-            <Post key={post.id} post={post} />
+            <Post key={post.id} post={post} setPosts={setPosts} posts={posts}/>
           ))}
         </Col>
       </Row>
