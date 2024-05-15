@@ -46,7 +46,7 @@ const Post = ({ post, setPosts, posts }) => {
         )}
         {/* Add more interactive features like comments, likes, etc. */}
         {/* For now, just a simple button for demonstration */}
-        {author.uid !== auth.currentUser.uid ? <Link to={`/maain/:${author.uid}`} style={{textDecoration:'none'}}>
+        {author.uid !== auth.currentUser.uid ? <Link to={`/maain/${author.uid}`} style={{textDecoration:'none'}}>
         <Button 
         style={{
         display:'flex',

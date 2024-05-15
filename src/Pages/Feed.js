@@ -67,6 +67,7 @@ function Feed() {
 
     const [content, setContent] = useState('');
     const [media, setMedia] = useState(null);
+    let role =localStorage["role"];
 
     useEffect(() => {
       const fetchPosts = async () => {
@@ -135,6 +136,7 @@ function Feed() {
         <Navigation />
       </Row>
 
+{role ==='ingenieur' && (
 <div className="something"
    style={{marginLeft:'443px', marginBottom:'30px', marginTop:'30px', width:'775px', borderRadius:'4px', border:'solid 2px green'}}>
   <span class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"></span>
@@ -171,6 +173,7 @@ function Feed() {
     </button>
   </div>
 </div>
+)}
       
       
       <Row style={{ ...Styles.postcontainer, margin: '0 auto', maxWidth: '1200px', marginLeft: '430px'}}>
