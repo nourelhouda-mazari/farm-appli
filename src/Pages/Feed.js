@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Button, Placeholder } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
 import Post from '../Components/Post';
 import téléchargement from '../Components/tuto1.jpg';
 import Navigation from '../Components/Navigation';
@@ -141,7 +142,7 @@ function Feed() {
   <input
     className="somethingElse"
     style={{width:'720px', marginBottom:'20px', marginTop:'30px', height:'50px', marginLeft:'30px',borderRadius:'4px', border:'solid 2px green', background:'#d3f8d3'}}
-    placeholder="  Nouvelle astuce ?"
+    placeholder={t("New trick?")}
     aria-label="Créer une publication"
     onChange={handleContentChange}
     type="text"
@@ -155,7 +156,7 @@ function Feed() {
     onMouseEnter={handleMouseEnterDirect}
     onMouseLeave={handleMouseLeaveDirect}
       >
-      <span>Photo/Video</span>
+      <span>{t("Photo/Video")}</span>
       <input type="file" id="direct" style={{ display: 'none' }} onChange={handleMediaChange} />
     </button>
     
@@ -167,7 +168,7 @@ function Feed() {
      onMouseEnter={handleMouseEnterPoster}
      onMouseLeave={handleMouseLeavePoster}
       >
-      <span>Publier</span>
+      <span>{t("post")}</span>
     </button>
   </div>
 </div>
