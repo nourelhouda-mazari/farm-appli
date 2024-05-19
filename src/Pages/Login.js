@@ -64,17 +64,14 @@ function Login({ initialValues, onChange }) {
           },
       })
       .then((response) => {
-        localStorage["role"] = response.data.role;
+        
         if(response.data.role === "ingenieur") {
-          navigate("/Feed");
-        } else if(response.data.role === "consomateur") {
-          navigate("/products");
+          navigate("/feed");
+        } else if(response.data.role === "products") {
+          navigate("/workforce");
         } else if(response.data.role === "agriculteur") {
           navigate("/workforce");
-        } 
-        else if(response.data.role ==="commercant"){
-          navigate("/products")
-        }
+        } navigate("/products");
         
       })
       .catch(error => console.error(error))
@@ -134,17 +131,16 @@ function Login({ initialValues, onChange }) {
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    // const emailInput = document.getElementById("reset-email");
-    console.log(username)
-    if (!username) {
+    const emailInput = document.getElementById("reset-email");
+    if (!emailInput || !emailInput.value) {
       console.error("Email address is required to reset password.");
       return;
     }
   
-    // const email = emailInput.value;
+    const email = emailInput.value;
   
     try {
-      await sendPasswordResetEmail(auth, username);
+      await sendPasswordResetEmail(auth, email);
       console.log("Password reset email sent successfully.");
     } catch (error) {
       console.error("Erreur lors de l'envoi de l'e-mail de réinitialisation du mot de passe :", error);

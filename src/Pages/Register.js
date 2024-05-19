@@ -106,16 +106,13 @@ function Register() {
       });
 
       if(profession === "ingenieur") {
-        navigate("/Feed");
+        navigate("/feed");
       } else if(profession === "commercant") {
         navigate("/products");
       } else if(profession === "agriculteur") {
         navigate("/workforce");
-      } else if(profession === "consomateur") {
-        navigate("/products");
-      }
+      } navigate("/products");
 
-      localStorage.setItem("role", profession);
       setShowLoginForm(true);
   
       // Connexion de l'utilisateur après l'inscription réussie
@@ -154,7 +151,7 @@ function Register() {
             />
 
             
-            <div className="additional-inputs" style={{maxWidth: 300}}><select 
+            <div className="additional-inputs"><select 
               value={ville} 
               onChange={(e) => setVille(e.target.value)} 
               required 

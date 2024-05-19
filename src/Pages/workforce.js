@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-//import { Link } from 'react-router-dom';// Import Link from react-router-dom
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';// Import Link from react-router-dom
 import { useState } from "react"; 
 import Navigation from '../Components/Navigation';
 import Footer from '../Components/footer';
@@ -10,7 +9,6 @@ import { auth } from "../firebase/firebase";
 
 const App = () => {
   const { t } = useTranslation(); 
-  const navigate = useNavigate();
 
   const [employees, setEmployees] = useState([/*
     {
@@ -97,8 +95,8 @@ const App = () => {
     fetchJobs()
   },[])
 
-  const addToCart = (job) => {
-    navigate("/maain/"+job.user.uid)
+  const addToCart = (product) => {
+    setCart([...cart, product]);
   };
 
   const deleteemployee = (employee) => {
@@ -119,7 +117,11 @@ const App = () => {
         {employees.map((employee, index) => (
           <div key={index} className="col-lg-4 col-md-6 mb-4">
             <div className="card">
-              
+              <img
+                alt={employee.job}
+                className="card-img-top"
+                src={employee.link}
+              />
               <div className="card-body">
                 <h5 className="card-title">{employee.user?.name}</h5>
                 <p className="card-text">{employee.description}</p>

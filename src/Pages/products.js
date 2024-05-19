@@ -16,7 +16,6 @@ import { auth } from "../firebase/firebase";
 // import patates from '../Images/patates.png';
 // import orange from '../Images/orange.png';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 
 const App = () => {
   const { t } = useTranslation(); 
@@ -190,10 +189,10 @@ const App = () => {
           <div className="mt-8">
             {renderProducts()}
           </div>
-          {/* <div className="mt-8">
+          <div className="mt-8">
             <h2>{t('Cart')}</h2>
             {renderCartItems()}
-          </div> */}
+          </div>
         </div>
       </section>
       <Footer />

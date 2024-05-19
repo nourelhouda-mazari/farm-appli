@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Button, Placeholder } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import i18n from '../i18n';
 import Post from '../Components/Post';
 import téléchargement from '../Components/tuto1.jpg';
 import Navigation from '../Components/Navigation';
@@ -13,7 +12,6 @@ import tuto from '../Components/tuto1.mp4';
 import avatar2 from '../Components/avatar1.jpg';
 import tuto1 from '../Components/tuto2.jpg'
 import axios from 'axios';
-import { auth } from '../firebase/firebase';
 
 function Feed() {
   const [hoveringButton, setHoveringButton] = useState(null);
@@ -68,7 +66,6 @@ function Feed() {
 
     const [content, setContent] = useState('');
     const [media, setMedia] = useState(null);
-    let role =localStorage["role"];
 
     useEffect(() => {
       const fetchPosts = async () => {
@@ -78,8 +75,7 @@ function Feed() {
           },
         })
         .then((response) => {
-          const ids = Object.keys(response.data);
-          if(response.data) setPosts(Object.values(response.data)?.map((post, i) => ({...post, avatar, id: ids[i]})));
+          if(response.data) setPosts(Object.values(response.data)?.map((post) => ({...post, avatar})));
           else setPosts([]);
         }
         )
@@ -113,14 +109,13 @@ function Feed() {
       .then((response) => {
         setPosts([{
           author: {
-            name: auth.currentUser.displayName,
-            uid: auth.currentUser.uid,
+            name: 'John Doe',
           },
           createdAt: new Date().getTime(),
           description: content,
           link: URL.createObjectURL(media),
           avatar,
-          id: response.data.id,
+          id: Math.random(),
         }, ...posts]);
       })
       .catch(error => console.error(error))
@@ -137,14 +132,13 @@ function Feed() {
         <Navigation />
       </Row>
 
-{role ==='ingenieur' && (
 <div className="something"
    style={{marginLeft:'443px', marginBottom:'30px', marginTop:'30px', width:'775px', borderRadius:'4px', border:'solid 2px green'}}>
   <span class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"></span>
   <input
     className="somethingElse"
     style={{width:'720px', marginBottom:'20px', marginTop:'30px', height:'50px', marginLeft:'30px',borderRadius:'4px', border:'solid 2px green', background:'#d3f8d3'}}
-    placeholder={t("New trick?")}
+    placeholder="  Nouvelle astuce ?"
     aria-label="Créer une publication"
     onChange={handleContentChange}
     type="text"
@@ -158,7 +152,7 @@ function Feed() {
     onMouseEnter={handleMouseEnterDirect}
     onMouseLeave={handleMouseLeaveDirect}
       >
-      <span>{t("Photo/Video")}</span>
+      <span>Photo/Video</span>
       <input type="file" id="direct" style={{ display: 'none' }} onChange={handleMediaChange} />
     </button>
     
@@ -170,18 +164,17 @@ function Feed() {
      onMouseEnter={handleMouseEnterPoster}
      onMouseLeave={handleMouseLeavePoster}
       >
-      <span>{t("post")}</span>
+      <span>Publier</span>
     </button>
   </div>
 </div>
-)}
       
       
       <Row style={{ ...Styles.postcontainer, margin: '0 auto', maxWidth: '1200px', marginLeft: '430px'}}>
         <Col md={8} className="feed-container">
           {/* Iterate over posts array and render each post */}
           {posts?.sort((a, b)=> b.createdAt - a.createdAt).map((post) => (
-            <Post key={post.id} post={post} setPosts={setPosts} posts={posts}/>
+            <Post key={post.id} post={post} />
           ))}
         </Col>
       </Row>
