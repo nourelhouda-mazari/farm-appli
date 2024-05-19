@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Image from '../Images/logo.jpg';
-import Cart from '../Images/more+.png';
+import Cart from '../Images/chariot-de-chariot.png';
 import Call from '../Images/silhouette-de-messages.png';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,7 +14,6 @@ import LanguageSelector from './LanguageSelector';
 import '../Styles/Home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useTranslation } from 'react-i18next';
-import Ajouter from './AjoutP'
 
 function Navigation() {
   const { t, i18n } = useTranslation();
@@ -41,16 +40,12 @@ function Navigation() {
     navigate('/account');
   };
 
-  const handleAjoutClick = () => {
-    navigate('/Ajouter');
+  const handlePanierClick = () => {
+    navigate('/panier');
   };
 
   const handleCallClick = () => {
-    navigate('/Maain'); // Navigate to the correct route '/ContactUs'
-  };
-
-  const handlefeedClick = () => {
-    navigate('/feed'); // Navigate to the correct route '/ContactUs'
+    navigate('/ContactUs'); // Navigate to the correct route '/ContactUs'
   };
 
   const ProductsPlaceholder = t("search for products");
@@ -58,10 +53,7 @@ function Navigation() {
   return (
     <Navbar expand="lg" className='bg-body-tertiary'>
       <Container style={{ padding: "0%" }}>
-        <Navbar.Brand href="/" onClick={(e)=> {
-          e.preventDefault();
-          navigate('/');
-        }} className="d-flex align-items-center brand">
+        <Navbar.Brand href="/" className="d-flex align-items-center brand">
           <img src={Image} alt="image" />
           <span className="brand-text">FarmConnect</span>
         </Navbar.Brand>
@@ -71,15 +63,14 @@ function Navigation() {
             <Nav.Link className="ms-3" style={{ marginRight: '1rem' }} onClick={handleMaindoeuvreClick}>{t("workforce")}</Nav.Link>
             <Nav.Link className="ms-3" style={{ marginRight: '1rem' }} onClick={handleProductsClick}>{t("products")}</Nav.Link>
             <Nav.Link className="ms-3" style={{ marginRight: '1rem' }} onClick={handleEquipementsClick}>{t("equipements")}</Nav.Link>
-            <Nav.Link className='ms-3' style={{ marginRight: '10rem', marginLeft: '10rem' }} onClick={handlefeedClick}>{t("Accéder à l'espace Tutoriels et astuce")}</Nav.Link>
-            
+            <SearchBar placeholderText={ProductsPlaceholder} />
             <div style={{ padding: '7px'}}>
               <LanguageSelector />
             </div>
             <Nav.Link onClick={handleAccountClick}>
               <FontAwesomeIcon icon={faUser} style={{ fontSize: '20px', marginRight: '10px' }} />
             </Nav.Link>
-            <Nav.Link onClick={handleAjoutClick}>
+            <Nav.Link onClick={handlePanierClick}>
               <img src={Cart} alt={t("cart")} style={{ width: '25px', marginRight: '10px' }} />
             </Nav.Link>
             <Nav.Link onClick={handleCallClick}>

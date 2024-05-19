@@ -5,7 +5,6 @@ import Footer from '../Components/footer';
 import img from '../Images/Mourad.png'; // Import the user's photo
 import { useTranslation } from 'react-i18next'; // Import the useTranslation hook
 import { auth } from "../firebase/firebase";
-import { toast } from 'react-toastify';
 
 const Account = () => {
   const { t } = useTranslation(); // Use the useTranslation hook for translation
@@ -18,7 +17,7 @@ const Account = () => {
           <div className="profile-card">
             <img
               src={img} // Use the imported user photo
-              alt="user profile"
+              alt="user photo"
               className="profile-photo"
             />
             <div className="profile-info">
@@ -26,12 +25,6 @@ const Account = () => {
               <div className="profile-email">{auth?.currentUser?.email || "@gmail.com"}</div>
             </div>
           </div>
-              <button className='btn btn-danger w-full' onClick={()=> {
-                localStorage.removeItem("role")
-                localStorage.removeItem("token")
-                auth.signOut()
-                toast.success(t("Successful logout"))
-              }} style={{width: "100%", height: 50}}>{t("Logout")}</button>
         </div>
         <div className="profile-main">
           <div className="profile-header">

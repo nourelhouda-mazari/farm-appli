@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';// Import Link from react-router-dom
+import { Link } from 'react-router-dom';// Import Link from react-router-dom
 import { useState } from "react"; 
 import Navigation from '../Components/Navigation';
 import Footer from '../Components/footer';
@@ -17,7 +17,6 @@ import { auth } from "../firebase/firebase";
 import axios from 'axios';
 const App = () => {
   const { t } = useTranslation(); 
-  const navigate = useNavigate();
 
   const [products, setProducts] = useState([/*
     {
@@ -100,8 +99,7 @@ const App = () => {
   },[])
 
   const addToCart = (product) => {
-    navigate("/maain/"+product.author.uid)
-
+    setCart([...cart, product]);
   };
 
   const deletee = (employee) => {
@@ -130,7 +128,7 @@ const App = () => {
               <div className="card-body">
                 <h5 className="card-title">{(product.name)}</h5>
                 <p className="card-text">{product.description}</p>
-                <p className="card-text">{t("price")}:{product.price} {("Da")}</p> {/* Displaying the price */}
+                <p className="card-text">{t("price")}:{product.prix} {("Da")}</p> {/* Displaying the price */}
                 <div className="d-flex justify-content-end align-items-center">
                 {auth.currentUser?.uid === product.author.uid?
                   <button className="btn btn-danger" onClick={()=> deletee(product, index)}>

@@ -15,7 +15,6 @@ function AddProductForm() {
   const [name, setName] = useState('');
   const [NP, setNP] = useState('');
   const [Exp, setExp] = useState('');
-  const [role, setRole] = useState(localStorage["role"] || '');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -110,8 +109,8 @@ function AddProductForm() {
           Catégorie :
           <select value={category} onChange={handleCategoryChange}>
             <option value="">Select category</option>
-            {role !== "commercant" && <option value="emploi">Demande Emploi</option>}
-            {role !== "commercant" && <option value="equipement">Équipement</option>}
+            <option value="emploi">Demande Emploi</option>
+            <option value="equipement">Équipement</option>
             <option value="fruits_legumes">Fruits/Légumes</option>
           </select>
         </label>
