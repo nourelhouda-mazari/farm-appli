@@ -27,7 +27,7 @@ const Post = ({ post, setPosts, posts }) => {
       <Card.Header style={{ width: '773px', display: 'flex', alignItems: 'center' }}>
        <img src={avatar} alt="Avatar" className="avatar mr-3" style={{marginRight:'10px', marginTop:'-1px', height:'50px', width:'50px'}} />
        <div>
-         <h6 className="mb-0">{author.name || "Unknown"}</h6>
+         <h6 className="mb-0">{author.name || "Ingenieur"}</h6>
          <p className="text-muted mb-0">{new Date(createdAt).toLocaleString()}</p>
        </div>
       </Card.Header>
