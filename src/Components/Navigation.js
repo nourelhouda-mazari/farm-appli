@@ -71,7 +71,7 @@ function Navigation() {
             <Nav.Link className="ms-3" style={{ marginRight: '1rem' }} onClick={handleMaindoeuvreClick}>{t("workforce")}</Nav.Link>
             <Nav.Link className="ms-3" style={{ marginRight: '1rem' }} onClick={handleProductsClick}>{t("products")}</Nav.Link>
             <Nav.Link className="ms-3" style={{ marginRight: '1rem' }} onClick={handleEquipementsClick}>{t("equipements")}</Nav.Link>
-            <Nav.Link className='ms-3' style={{ marginRight: '10rem', marginLeft: '10rem' }} onClick={handlefeedClick}>{t("Accéder à l'espace Tutoriels et astuce")}</Nav.Link>
+            <Nav.Link className='ms-3' style={{ marginRight: '10rem', marginLeft: '10rem' }} onClick={handlefeedClick}>{t("Access the Tutorials and tips area")}</Nav.Link>
             
             <div style={{ padding: '7px'}}>
               <LanguageSelector />

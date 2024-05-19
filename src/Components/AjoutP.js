@@ -4,8 +4,15 @@ import Navigation from '../Components/Navigation';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import { useNavigate, } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
 
 function AddProductForm() {
+  const { t, i18n } = useTranslation();
+  
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
   const [category, setCategory] = useState('');
   const [qte, setQte] = useState('');
   const [prix, setPrix] = useState('');
@@ -104,29 +111,29 @@ function AddProductForm() {
       </Row>
       </div>
     <div className="add-product-form-container">
-      <h2>Ajouter un Poste </h2>
+      <h2>{t("Add an Extension")} </h2>
       <form onSubmit={handleSubmit}>
         <label>
-          Catégorie :
+        {t("Catégorie :")}
           <select value={category} onChange={handleCategoryChange}>
-            <option value="">Select category</option>
-            {role !== "commercant" && <option value="emploi">Demande Emploi</option>}
-            {role !== "commercant" && <option value="equipement">Équipement</option>}
-            <option value="fruits_legumes">Fruits/Légumes</option>
+            <option value="">{t("Select category")}</option>
+            {role !== "commercant" && <option value="emploi">{t("Job Application")}</option>}
+            {role !== "commercant" && <option value="equipement">{t("equipements")}</option>}
+            <option value="fruits_legumes">{t("Fruit/Vegetables")}</option>
           </select>
         </label>
         {category === 'emploi' && (
             <>
             <label>
-                Degree :
+                {t("Degree :")}
                 <input type="text" value={NP} onChange={(e) => setNP(e.target.value)} />
             </label>
             <label>
-                Description :
+                {t("Description :")}
                 <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
             </label>
             <label>
-                Experience :
+                {t("Experience :")}
                 <input type="text" value={Exp} onChange={(e) => setExp(e.target.value)} />
             </label>
             </>
@@ -134,23 +141,23 @@ function AddProductForm() {
         {category === 'fruits_legumes' && (
           <>
                   <label>
-          Name :
+          {t("Name :")}
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
         </label>
             <label>
-          Description :
+          {t("Description :")}
           <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
         </label>
         <label>
-          Lieu :
+          {t("Lieu :")}
           <input type="text" value={lieu} onChange={(e) => setLieu(e.target.value)} />
         </label>
             <label>
-              Quantité :
+              {t("Quantité :")}
               <input type="text" value={qte} onChange={(e) => setQte(e.target.value)} />
             </label>
             <label>
-              Prix :
+              {t("price")}:
               <input type="text" value={prix} onChange={(e) => setPrix(e.target.value)} />
             </label>
             <label>
@@ -162,27 +169,27 @@ function AddProductForm() {
         
         {category === 'equipement' && (<>
         <label>
-          Name :
+          {t("Name :")}
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
         </label>
         <label>
-          Description :
+          {t("Description :")}
           <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
         </label>
         <label>
-          Lieu :
+          {t("Lieu :")}
           <input type="text" value={lieu} onChange={(e) => setLieu(e.target.value)} />
         </label>
             <label>
-            Prix par jour (location) :
+            {t("Prix par jour (location) :")}
             <input type="text" value={prix} onChange={(e) => setPrix(e.target.value)} />
           </label>
             <label>
-            Photo :
+            {t("Photo :")}
             <input type="file" value={file?.filename} onChange={(e) => setFile(e.target.files[0])} />
           </label>
           </>)}
-        <button type="submit">Ajouter</button>
+        <button type="submit">{t("Ajouter")}</button>
       </form>
     </div></>
   );
